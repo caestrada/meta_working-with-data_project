@@ -44,7 +44,24 @@ export default function App() {
     // Fetch the menu from the API_URL endpoint. You can visit the API_URL in your browser to inspect the data returned
     // The category field comes as an object with a property called "title". You just need to get the title value and set it under the key "category".
     // So the server response should be slighly transformed in this function (hint: map function) to flatten out each menu item in the array,
-    return [];
+
+    const data = [];
+    try {
+      const response = await fetch(API_URL);
+      const json = await response.json();
+      // console.log(json);
+      json.menu.forEach((item) => {
+        data.push({
+          id: item.id,
+          title: item.title,
+          price: item.price,
+          category: item.category.title,
+        });
+      });
+    } catch (error) {
+      console.log(error);
+    }
+    return data;
   }
 
   useEffect(() => {
