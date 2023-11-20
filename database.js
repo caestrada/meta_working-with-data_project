@@ -32,6 +32,13 @@ export function saveMenuItems(menuItems) {
     // 2. Implement a single SQL statement to save all menu data in a table called menuitems.
     // Check the createTable() function above to see all the different columns the table has
     // Hint: You need a SQL statement to insert multiple rows at once.
+
+    menuItems.forEach((item) => {
+      tx.executeSql(
+        'INSERT INTO menuitems (uuid, title, price, category) VALUES (?, ?, ?, ?)',
+        [item.id, item.title, item.price, item.category]
+      );
+    });
   });
 }
 
